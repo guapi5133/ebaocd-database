@@ -1,0 +1,19 @@
+{
+    "name": "guapi5133/eboacd-database",
+    "description": "mvc database factory class",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Xiuluo",
+            "email": "5192412@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "eBaocd\\DataBase\\": "src/"
+        }
+    }
+}
