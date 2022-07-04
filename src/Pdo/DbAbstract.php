@@ -132,7 +132,7 @@ abstract class DbAbstract
 	 * @param string $where "and cola='1'" 或者 array("cola"=>"1")
 	 * @return int 影响的行数
 	 */
-	public function Update($table, array $bind, $where = '')
+	public function Update($table, array $bind, $where = '',array $inc=[],array $sec=[])
 	{
 		$set = array();
 		$i = 0;
@@ -172,9 +172,29 @@ abstract class DbAbstract
 				} else {
 					$val = '?';
 				}
-				$set[] = $this->QuoteIdentifier($col, true) . " = " . $val;
+				$set[] = $this->QuoteIdentifier($col) . " = " . $val;
 			}
 		}
+
+        //自增
+        if (!empty($inc))
+        {
+            foreach ($inc as $col => $val)
+            {
+                $col = $this->QuoteIdentifier($col);
+                $set[] = $col  . " = $col + " . $val;
+            }
+        }
+
+        //自减
+        if (!empty($sec))
+        {
+            foreach ($sec as $col => $val)
+            {
+                $col = $this->QuoteIdentifier($col);
+                $set[] = $col  . " = $col - " . $val;
+            }
+        }
 
 		$where = $this->_WhereExpr($where);
 
